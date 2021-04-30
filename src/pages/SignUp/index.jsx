@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { PasswordInput, PasswordInputBox } from '../Login/styles';
@@ -48,52 +48,58 @@ const SignUp = () => {
     setIsHiddenIcon2(!isHidden2);
   }
   return(
-    <Container>
-      <SubContainer>
-        <Input placeholder="Nome Completo" onChangeText={value => setIsText1(value)} />
-        <Input placeholder="Email" onChangeText={value => setIsText2(value)}/>
-        <Input placeholder="Número do celular" onChangeText={value => setIsText3(value)}/>
-        <PasswordInput>
-          {
-            isHidden ?
-              <PasswordInputBox placeholder="Senha" secureTextEntry placeholderTextColor="#114978" onChangeText={value => setIsText4(value)}  />
-            :
-              <PasswordInputBox placeholder="Senha" secureTextEntry={false} placeholderTextColor="#114978" onChangeText={value => setIsText4(value)} />
-            
-          }
-          <TouchableOpacity onPress={handleInput} >
-            {
-              isHiddenIcon ?
-                <Icon name="eye" size={20} />
-              :
-                <Icon name="eye-with-line" size={20} />
-            }
-          </TouchableOpacity>
-        </PasswordInput>
-        <PasswordInput>
-          {
-            isHidden2 ?
-              <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry placeholderTextColor="#114978" onChangeText={value => setIsText5(value)}  />
-            :
-              <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry={false} placeholderTextColor="#114978" onChangeText={value => setIsText5(value)} />
-            
-          }
-          <TouchableOpacity onPress={handleInput2} >
-            {
-              isHiddenIcon2 ?
-                <Icon name="eye" size={20} />
-              :
-                <Icon name="eye-with-line" size={20} />
-            }
-          </TouchableOpacity>
-      </PasswordInput>
-        <Input placeholder="ID da Escola" onChangeText={value => setIsText6(value)} />
-        <Button disabled={isDisabled} onPress={() => {
-          navigation.goBack()
-        }}>Cadastrar</Button>
-      </SubContainer>
+    <KeyboardAvoidingView style={{ flex: 1}}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
-    </Container>
+        <Container>
+          <SubContainer>
+            <Input placeholder="Nome Completo" onChangeText={value => setIsText1(value)} />
+            <Input placeholder="Email" onChangeText={value => setIsText2(value)}/>
+            <Input placeholder="Número do celular" onChangeText={value => setIsText3(value)}/>
+            <PasswordInput>
+              {
+                isHidden ?
+                <PasswordInputBox placeholder="Senha" secureTextEntry placeholderTextColor="#114978" onChangeText={value => setIsText4(value)}  />
+                :
+                <PasswordInputBox placeholder="Senha" secureTextEntry={false} placeholderTextColor="#114978" onChangeText={value => setIsText4(value)} />
+                
+              }
+              <TouchableOpacity onPress={handleInput} >
+                {
+                  isHiddenIcon ?
+                  <Icon name="eye" size={20} />
+                  :
+                  <Icon name="eye-with-line" size={20} />
+                }
+              </TouchableOpacity>
+            </PasswordInput>
+            <PasswordInput>
+              {
+                isHidden2 ?
+                <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry placeholderTextColor="#114978" onChangeText={value => setIsText5(value)}  />
+                :
+                <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry={false} placeholderTextColor="#114978" onChangeText={value => setIsText5(value)} />
+                
+              }
+              <TouchableOpacity onPress={handleInput2} >
+                {
+                  isHiddenIcon2 ?
+                  <Icon name="eye" size={20} />
+                  :
+                  <Icon name="eye-with-line" size={20} />
+                }
+              </TouchableOpacity>
+          </PasswordInput>
+            <Input placeholder="ID da Escola" onChangeText={value => setIsText6(value)} />
+            <Button disabled={isDisabled} onPress={() => {
+              navigation.goBack()
+            }}>Cadastrar</Button>
+          </SubContainer>
+
+        </Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+
   );
 }
 
