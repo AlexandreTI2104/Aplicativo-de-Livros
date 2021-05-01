@@ -79,7 +79,7 @@ const Feed = () => {
                 )}
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
-                style={{ height: "100%"}}
+                style={{ height: "100%", zIndex: 1 }}
                 />
             <ContainerFloatingButton style={{ elevation: 0}}>
                 <ButtonBook>
