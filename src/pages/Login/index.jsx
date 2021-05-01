@@ -26,13 +26,7 @@ const Login = () => {
         <BoxInput>
           <Input placeholder="Email" />
           <PasswordInput>
-            {
-              isHidden ?
-              <PasswordInputBox placeholder="Senha" secureTextEntry placeholderTextColor="#114978"  />
-              :
-              <PasswordInputBox placeholder="Senha" secureTextEntry={false} placeholderTextColor="#114978" />
-              
-            }
+              <PasswordInputBox placeholder="Senha" secureTextEntry={isHidden} placeholderTextColor="#114978" />
             <TouchableOpacity onPress={handleInput} >
               {
                 isHiddenIcon ?

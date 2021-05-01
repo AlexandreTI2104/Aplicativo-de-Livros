@@ -57,13 +57,7 @@ const SignUp = () => {
             <Input placeholder="Email" onChangeText={value => setIsText2(value)}/>
             <Input placeholder="Número do celular" onChangeText={value => setIsText3(value)}/>
             <PasswordInput>
-              {
-                isHidden ?
-                <PasswordInputBox placeholder="Senha" secureTextEntry placeholderTextColor="#114978" onChangeText={value => setIsText4(value)}  />
-                :
-                <PasswordInputBox placeholder="Senha" secureTextEntry={false} placeholderTextColor="#114978" onChangeText={value => setIsText4(value)} />
-                
-              }
+                <PasswordInputBox placeholder="Senha" secureTextEntry={isHidden} placeholderTextColor="#114978" onChangeText={value => setIsText4(value)} />
               <TouchableOpacity onPress={handleInput} >
                 {
                   isHiddenIcon ?
@@ -74,13 +68,7 @@ const SignUp = () => {
               </TouchableOpacity>
             </PasswordInput>
             <PasswordInput>
-              {
-                isHidden2 ?
-                <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry placeholderTextColor="#114978" onChangeText={value => setIsText5(value)}  />
-                :
-                <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry={false} placeholderTextColor="#114978" onChangeText={value => setIsText5(value)} />
-                
-              }
+                <PasswordInputBox placeholder="Confirme sua senha" secureTextEntry={isHidden2} placeholderTextColor="#114978" onChangeText={value => setIsText5(value)} />
               <TouchableOpacity onPress={handleInput2} >
                 {
                   isHiddenIcon2 ?
