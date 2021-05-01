@@ -1,8 +1,9 @@
 import React from 'react';
 import Unlogged from './unlogged.routes';
+import Logged from './logged.routes';
 
 const Routes = () => (
-  <Unlogged />
+  <Logged />
 );
 
 export default Routes;

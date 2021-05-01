@@ -44,7 +44,9 @@ const Login = () => {
           </PasswordInput>
         </BoxInput>
           <View style={{ marginTop: 30, width: "100%", paddingHorizontal: 30}}>
-            <Button>Entrar</Button>
+            <Button
+            onPress={() => navigation.navigate('Feed')}
+            >Entrar</Button>
           </View>
           <View style={{width: "100%", flexDirection: "row", marginTop: 24, justifyContent: "space-between", alignItems: "center", paddingHorizontal: 40}}>
             <Text>Ainda não tem conta?</Text>
