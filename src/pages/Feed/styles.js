@@ -4,6 +4,7 @@ export const Container = styled.View`
     flex: 1;
     background: white;
     justify-content: flex-end;
+    align-items: center;
 `;
 
 export const ContainerFloatingButton = styled.View`
@@ -12,7 +13,7 @@ export const ContainerFloatingButton = styled.View`
     padding: 20px 20px;
     align-items: flex-end;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
 `;
 
 export const ButtonBook = styled.TouchableOpacity`
@@ -23,4 +24,9 @@ export const ButtonBook = styled.TouchableOpacity`
     box-shadow: 0 6px 10px rgba(0,0,0, 0.12);
     align-items: center;
     justify-content: center;
+`;
+
+export const ViewList = styled.View`
+    margin-top: 30px;
+    height: 100%;
 `;
