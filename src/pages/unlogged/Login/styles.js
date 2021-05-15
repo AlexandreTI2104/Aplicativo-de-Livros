@@ -1,18 +1,16 @@
-import styled from 'styled-components/native';
+import styled from 'styled-components/native'
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const BoxInput = styled.View`
   width: 100%;
-  height: 140px;
   justify-content: space-between;
-  padding: 0 30px; 
-`;
-
+  padding: 0 30px;
+`
 
 export const PasswordInput = styled.View`
   height: 50px;
@@ -25,9 +23,8 @@ export const PasswordInput = styled.View`
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
-`;
+`
 export const PasswordInputBox = styled.TextInput`
   height: 100%;
   flex: 1;
-
-`;
+`
