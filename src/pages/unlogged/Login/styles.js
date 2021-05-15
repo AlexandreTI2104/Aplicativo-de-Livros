@@ -12,19 +12,11 @@ export const BoxInput = styled.View`
   padding: 0 30px;
 `
 
-export const PasswordInput = styled.View`
-  height: 50px;
-  width: 100%;
-  border-width: 1px;
-  border-color: #2196f3;
-  border-radius: 15px;
-  color: black;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
+export const TextInputWrapper = styled.View`
+  margin-bottom: 8px;
 `
-export const PasswordInputBox = styled.TextInput`
-  height: 100%;
-  flex: 1;
+
+export const ErrorText = styled.Text`
+  color: #b00020;
+  margin-left: 4px;
 `

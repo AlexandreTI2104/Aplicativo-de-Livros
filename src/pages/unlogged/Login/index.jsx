@@ -10,14 +10,13 @@ import {
 } from 'react-native'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
-import { BoxInput, Container, PasswordInput, PasswordInputBox } from './styles'
+import * as Styled from './styles'
 import Icon from 'react-native-vector-icons/Entypo'
 import WelcomePng from '../../../assets/welcome.png'
 import { useNavigation } from '@react-navigation/core'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Formik } from 'formik'
+import { ErrorMessage, Formik } from 'formik'
 import { TextInput } from 'react-native-paper'
-import { authenticate } from '../../../services/auth'
 import * as yup from 'yup'
 import axios from 'axios'
 
@@ -26,18 +25,15 @@ const loginSchema = yup.object({
     .string()
     .required('Insira um e-mail.')
     .email('Insira um e-mail válido.'),
-  password: yup.string().required('Insira uma senha.'),
+  password: yup
+    .string()
+    .min(6, ({ min }) => `Senha deve conter no mínimo ${min} caracteres`)
+    .required('Insira uma senha.'),
   authentication: yup.mixed(),
 })
 
 const Login = () => {
-  const [isHidden, setIsHidden] = useState(true)
-  const [isHiddenIcon, setIsHiddenIcon] = useState(true)
   const navigation = useNavigation()
-  const handleInput = () => {
-    setIsHidden(!isHidden)
-    setIsHiddenIcon(!isHidden)
-  }
 
   const handleLogin = (values) => {
     axios
@@ -62,7 +58,7 @@ const Login = () => {
         onPress={Keyboard.dismiss}
         style={{ backgroundColor: 'white' }}
       >
-        <Container style={{ backgroundColor: 'white' }}>
+        <Styled.Container style={{ backgroundColor: 'white' }}>
           <Image
             source={WelcomePng}
             resizeMode="contain"
@@ -73,33 +69,53 @@ const Login = () => {
             initialValues={{ email: '', password: '', authentication: null }}
             onSubmit={(values) => handleLogin(values)}
           >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
-              <BoxInput>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <Styled.BoxInput>
+                <Styled.TextInputWrapper>
+                  <TextInput
+                    name="email"
+                    mode="outlined"
+                    label="Email"
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                    selectionColor="#2196f3"
+                    error={errors.email && touched.email}
+                  />
+                  {errors.email && touched.email && (
+                    <Styled.ErrorText>{errors.email}</Styled.ErrorText>
+                  )}
+                </Styled.TextInputWrapper>
                 <TextInput
-                  mode="outlined"
-                  label="Email"
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                />
-                <TextInput
+                  name="password"
                   mode="outlined"
                   label="Senha"
                   onBlur={handleBlur('password')}
                   value={values.password}
                   onChangeText={handleChange('password')}
                   secureTextEntry={true}
-                />
+                  selectionColor="#2196f3"
+                  error={errors.password && touched.password}
+                ></TextInput>
+                {errors.password && touched.password && (
+                  <Styled.ErrorText>{errors.password}</Styled.ErrorText>
+                )}
                 <View
                   style={{
                     marginTop: 30,
                     width: '100%',
-                    paddingHorizontal: 30,
                   }}
                 >
                   <Button onPress={handleSubmit}>Entrar</Button>
                 </View>
-              </BoxInput>
+              </Styled.BoxInput>
             )}
           </Formik>
           <View
@@ -121,7 +137,7 @@ const Login = () => {
               <Text style={{ color: '#2196f3' }}>Criar Conta</Text>
             </TouchableOpacity>
           </View>
-        </Container>
+        </Styled.Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   )
