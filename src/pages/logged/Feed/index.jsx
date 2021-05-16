@@ -7,43 +7,51 @@ import {
 } from './styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Books } from '../../../components/Books'
-import { FlatList } from 'react-native'
-import { dataBooks } from '../../../utils/databook'
-import api from '../../../services/api'
+import { FlatList, StyleSheet } from 'react-native'
+import { ActivityIndicator, Colors, FAB } from 'react-native-paper'
+import { fetcher } from '../../../services/api'
+import useSWR from 'swr'
 
 const Feed = () => {
-  // const handleClick = () => {
-  //   api
-  //     .post('/books', {
-  //       book: {
-  //         title: 'Quincas Borba',
-  //         author: 'Machado de Assis',
-  //         rewardable: true,
-  //       },
-  //     })
-  //     .then((res) => console.log())
-  //     .catch((err) => console.log(err))
-  // }
-  return (
+  const { data: books, error } = useSWR('/books', fetcher)
+
+  return books ? (
     <Container>
       <FlatList
+        initialScrollIndex={1}
         keyExtractor={(item) => item.id}
-        data={dataBooks}
+        data={books}
         renderItem={({ item }) => (
-          <ViewList>
-            <Books title={item.title} genre={item.genre} />
-          </ViewList>
+          <Books title={item.title} genres={item.genres} cover={item.cover} />
         )}
         numColumns={3}
         showsVerticalScrollIndicator={false}
       />
-      <ContainerFloatingButton style={{ elevation: 0 }}>
-        <ButtonBook>
-          <Icon name="book-plus-multiple" size={30} color="#fff" />
-        </ButtonBook>
-      </ContainerFloatingButton>
+      <FAB
+        style={styles.fab}
+        icon="book-plus-multiple"
+        onPress={() => console.log('Pressed')}
+      />
+    </Container>
+  ) : (
+    <Container>
+      <ActivityIndicator
+        size={'large'}
+        animating={true}
+        color={Colors.blue500}
+      />
     </Container>
   )
 }
+
+const styles = StyleSheet.create({
+  fab: {
+    backgroundColor: '#E10050',
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+})
 
 export default Feed
