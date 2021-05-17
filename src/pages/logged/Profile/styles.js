@@ -1,38 +1,41 @@
-import styled from 'styled-components/native';
-import { css } from 'styled-components/native';
+import styled from 'styled-components/native'
+import { css } from 'styled-components/native'
 import { Dimensions } from 'react-native'
 
-const width = Dimensions.get('window').width;
+const width = Dimensions.get('window').width
 
 export const Container = styled.View`
   flex: 1;
   background: white;
-`;
+`
 
 export const NameContainer = styled.View`
   justify-content: center;
-  align-items: center;
-  height: 200px;
-`;
+  align-items: flex-start;
+  height: 150px;
+  width: 100%;
+`
 
 export const ProfileContainer = styled.View`
   flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  padding: 0 20px;
-`;
+  align-self: center;
+  align-items: center;
+  width: 80%;
+  margin: 55px 0;
+`
 
 export const CenterContainer = styled.View`
   height: 65px;
+  width: 100%;
   justify-content: space-between;
   margin-left: 10px;
-`;
+`
 
 export const AmountView = styled.View`
   flex-direction: row;
   align-items: center;
-  width: 100%;
-`;
+  width: 80%;
+`
 
 export const ProfilePic = styled.View`
   height: 75px;
@@ -41,54 +44,56 @@ export const ProfilePic = styled.View`
   border-radius: 50px;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const ProfilePicInitial = styled.Text`
   color: white;
   font-size: 20px;
-`;
+`
 
 export const Name = styled.Text`
   color: black;
   font-weight: 600;
   font-size: 15px;
-
-`;
-
+`
 
 export const MenuProfile = styled.View`
   margin-top: 20px;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   width: 100%;
   height: 50px;
   flex-direction: row;
   justify-content: space-around;
-`;
+`
 
 export const MenuProfilerButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  width: ${(width/3) - 10}px;
-  ${props => props.actived && css`
-    border-bottom-width: 1px;
-    border-bottom-color: #2196f3;
-  `}
-`;
+  width: ${width / 3 - 10}px;
+  ${(props) =>
+    props.actived &&
+    css`
+      border-bottom-width: 1px;
+      border-bottom-color: #2196f3;
+    `}
+`
 
 export const MenuProfilerButtonText = styled.Text`
   color: gray;
   font-size: 12px;
   font-weight: bold;
 
-  ${props => props.actived && css`
-    color: #2196f3;
-  `}
-`;
+  ${(props) =>
+    props.actived &&
+    css`
+      color: #2196f3;
+    `}
+`
 
 export const List = styled.View`
   flex: 1;
   align-items: center;
-`;
+`
 
 export const ViewDone = styled.View`
   height: 15px;
@@ -100,7 +105,7 @@ export const ViewDone = styled.View`
   right: 22px;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const ViewBill = styled.View`
   height: 15px;
@@ -112,7 +117,7 @@ export const ViewBill = styled.View`
   right: 22px;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const ViewBill2 = styled.View`
   height: 20px;
@@ -121,10 +126,10 @@ export const ViewBill2 = styled.View`
   background: orange;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const ViewButton = styled.View`
   width: 70%;
   align-items: center;
   justify-content: center;
-`;
+`

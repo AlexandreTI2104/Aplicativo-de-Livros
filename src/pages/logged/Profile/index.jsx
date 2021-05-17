@@ -1,158 +1,112 @@
-import React, { useCallback, useState } from 'react';
-import { FlatList, Text, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Icon2 from 'react-native-vector-icons/Foundation';
-import IconEdit from 'react-native-vector-icons/FontAwesome5';
-import { Books } from '../../../components/Books';
-import { dataBooks } from '../../../utils/databook';
-import { ViewList } from '../Feed/styles';
+import React, { useCallback, useState } from 'react'
+import {
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon2 from 'react-native-vector-icons/Foundation'
+import IconEdit from 'react-native-vector-icons/FontAwesome5'
+import { Books } from '../../../components/Books'
+import { dataBooks } from '../../../utils/databook'
 import { useNavigation } from '@react-navigation/native'
-import Button from '../../../components/Button';
-import { 
+import Button from '../../../components/Button'
+import { ActivityIndicator, Avatar, Colors } from 'react-native-paper'
+import { fetcher } from '../../../services/api'
+import useSWR from 'swr'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { TabView, SceneMap } from 'react-native-tab-view'
+import {
   Container,
-  List, 
-  MenuProfile, 
-  MenuProfilerButton, 
-  MenuProfilerButtonText, 
-  Name, 
-  NameContainer, 
-  ProfileContainer, 
-  ProfilePic, 
-  ProfilePicInitial, 
+  List,
+  MenuProfile,
+  MenuProfilerButton,
+  MenuProfilerButtonText,
+  Name,
+  NameContainer,
+  ProfileContainer,
+  ProfilePic,
+  ProfilePicInitial,
   ViewDone,
   ViewBill,
   ViewBill2,
   ViewButton,
   CenterContainer,
   AmountView,
-} from './styles';
+} from './styles'
+
+const FirstRoute = () => (
+  <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
+)
+
+const SecondRoute = () => (
+  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+)
+
+const ThirdRoute = () => (
+  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+)
+
+const renderScene = SceneMap({
+  first: FirstRoute,
+  second: SecondRoute,
+  third: ThirdRoute,
+})
 
 const Profile = () => {
-  const [isRead, setIsRead] = useState(false);
-  const [isNotRead, setIsNotRead] = useState(true);
-  const [isRegistered, setIsRegistered] = useState(false);
-  const navigation = useNavigation();
-  const handleButton = useCallback((number) => {
-    switch (number) {
-      case 1:
-        setIsRead(true)
-        setIsNotRead(false)
-        setIsRegistered(false)
-        break;
-      case 2:
-        setIsRead(false)
-        setIsNotRead(true)
-        setIsRegistered(false)
-        break;
-      case 3:
-        setIsRead(false)
-        setIsNotRead(false)
-        setIsRegistered(true)
-        break;
-      default:
-        break;
-    }
-    
-  },[]);
-  return (
+  const { data: user, error } = useSWR('/user', fetcher)
+  const { data: myBooks, error: myBooksError } = useSWR('/mybooks', fetcher)
+
+  const navigation = useNavigation()
+
+  return user ? (
     <Container>
-      <NameContainer>
-        <ProfileContainer>
-          <ProfilePic>
-            <ProfilePicInitial>N</ProfilePicInitial>
-          </ProfilePic>
-          <CenterContainer>
-            <Name>Nome da Silva Souza</Name>
-            <AmountView>
-              <ViewBill2>
-                <Icon2 name="dollar" color="white" size={20} />
-              </ViewBill2>
-              <Text style={{ marginLeft: 10}}>200</Text>
-              <TouchableOpacity 
-                style={{ position: 'absolute', right: 0 }} 
-                onPress={ () => navigation.goBack() }
-              >
-                <IconEdit name="user-edit" color="gray" />
-              </TouchableOpacity>
-            </AmountView>
-          </CenterContainer>
-        </ProfileContainer>
-      </NameContainer>
-      <Name style={{ marginLeft: 10}}>Meus Livros</Name>
-      <MenuProfile>
-        <MenuProfilerButton actived={isRead} onPress={ () => handleButton(1) } >
-          <MenuProfilerButtonText actived={isRead}>LIDOS</MenuProfilerButtonText>
-        </MenuProfilerButton >
-        <MenuProfilerButton actived={isNotRead} onPress={ () => handleButton(2) } >
-          <MenuProfilerButtonText actived={isNotRead} >À LER</MenuProfilerButtonText>
-        </MenuProfilerButton>
-        <MenuProfilerButton actived={isRegistered} onPress={ () =>handleButton(3) } >
-          <MenuProfilerButtonText actived={isRegistered}>CADASTRADOS</MenuProfilerButtonText>
-        </MenuProfilerButton>
-      </MenuProfile>
-      {
-        isRead &&
-        <List>
-          <FlatList
+      <ProfileContainer>
+        <Avatar.Text size={70} label={user.name[0]} />
+        <CenterContainer>
+          <Name>{user.name}</Name>
+          <AmountView>
+            <ViewBill2>
+              <Icon2 name="dollar" color="white" size={20} />
+            </ViewBill2>
+            <Text style={{ marginLeft: 10 }}>{user.points}</Text>
+            <TouchableOpacity
+              style={{ position: 'absolute', right: 18 }}
+              onPress={() => navigation.goBack()}
+            >
+              <IconEdit name="user-edit" color="gray" />
+            </TouchableOpacity>
+          </AmountView>
+        </CenterContainer>
+      </ProfileContainer>
+      <Name style={{ marginLeft: 10 }}>Meus livros cadastrados</Name>
+
+      {/* <FlatList
             data={dataBooks}
-            keyExtractor={ item => item.id }
-            renderItem={ ({ item }) => (
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
               <ViewList>
                 <Books genre={item.genre} title={item.title} />
                 <ViewDone>
-                  <Icon name="done" color='white' />
+                  <Icon name="done" color="white" />
                 </ViewDone>
               </ViewList>
             )}
             numColumns={3}
             showsVerticalScrollIndicator={false}
-          />
-        </List>
-      }
-      {
-        isNotRead &&
-        <List>
-          <FlatList
-            data={dataBooks}
-            keyExtractor={ item => item.id }
-            renderItem={ ({ item }) => (
-              <ViewList>
-                <Books genre={item.genre} title={item.title} />
-                {
-                  item.id % 2 !== 0 &&
-                  <ViewBill>
-                    <Icon2 name="dollar" color="white" size={15} />
-                  </ViewBill>
-                }
-                <ViewButton>
-                  <Button style={{ height: 30 }}>Terminei !</Button>
-                </ViewButton>
-              </ViewList>
-            )}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-          />
-        </List>
-      }
-      {
-        isRegistered &&
-        <List>
-          <FlatList
-            data={dataBooks}
-            keyExtractor={ item => item.id }
-            renderItem={ ({ item }) => (
-              <ViewList>
-                <Books genre={item.genre} title={item.title} />
-              </ViewList>
-            )}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-          />
-        </List>
-      }
+          /> */}
     </Container>
-  );
-};
+  ) : (
+    <Container>
+      <ActivityIndicator
+        size={'large'}
+        animating={true}
+        color={Colors.blue500}
+      />
+    </Container>
+  )
+}
 
-
-export default Profile;
+export default Profile
