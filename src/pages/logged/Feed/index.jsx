@@ -11,8 +11,10 @@ import { FlatList, StyleSheet } from 'react-native'
 import { ActivityIndicator, Colors, FAB } from 'react-native-paper'
 import { fetcher } from '../../../services/api'
 import useSWR from 'swr'
+import { useNavigation } from '@react-navigation/core'
 
 const Feed = () => {
+  const navigation = useNavigation()
   const { data: books, error } = useSWR('/books', fetcher)
 
   return books ? (
@@ -22,15 +24,21 @@ const Feed = () => {
         keyExtractor={(item) => item.id}
         data={books}
         renderItem={({ item }) => (
-          <Books title={item.title} genres={item.genres} cover={item.cover} />
+          <Books
+            title={item.title}
+            genres={item.genres}
+            cover={item.cover}
+            rewardable={item.rewardable}
+          />
         )}
         numColumns={3}
         showsVerticalScrollIndicator={false}
       />
       <FAB
+        color="white"
         style={styles.fab}
         icon="book-plus-multiple"
-        onPress={() => console.log('Pressed')}
+        onPress={() => navigation.navigate('Cadastro de Livro')}
       />
     </Container>
   ) : (
@@ -46,7 +54,7 @@ const Feed = () => {
 
 const styles = StyleSheet.create({
   fab: {
-    backgroundColor: '#E10050',
+    backgroundColor: Colors.blue500,
     position: 'absolute',
     margin: 16,
     right: 0,

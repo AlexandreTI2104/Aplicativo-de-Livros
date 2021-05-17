@@ -1,3 +1,4 @@
+import { setStatusBarStyle } from 'expo-status-bar'
 import styled from 'styled-components/native'
 
 export const Container = styled.TouchableOpacity`
@@ -9,10 +10,7 @@ export const Container = styled.TouchableOpacity`
 
 export const BookImage = styled.Image`
   height: 150px;
-  width: 100%;
   border-radius: 5px;
-  align-self: center;
-  background: rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 `
 
@@ -25,4 +23,17 @@ export const Title = styled.Text`
 export const Genre = styled.Text`
   color: gray;
   margin-left: 4px;
+`
+
+export const IconContainer = styled.View`
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 20px;
+  background-color: #ffa000;
+  border: 2px solid white;
 `
