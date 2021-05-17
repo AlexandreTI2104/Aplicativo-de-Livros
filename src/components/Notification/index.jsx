@@ -1,17 +1,27 @@
-import React from 'react';
-import { Bold, Button, ButtonText, Container, Image, SubContainer, Text } from './styles';
-
+import React from 'react'
+import { Avatar } from 'react-native-paper'
+import {
+  Bold,
+  Button,
+  ButtonText,
+  Container,
+  SubContainer,
+  Text,
+} from './styles'
 
 const Notification = ({ name, book }) => (
   <Container>
     <SubContainer>
-      <Image  />
-      <Text>Corrigir questões de <Bold>{name}</Bold> sobre {'\n'} seu livro: <Bold>{book}</Bold></Text>
+      <Avatar.Text size={50} label={name[0]} />
+      <Text>
+        <Bold>{name}</Bold> está interessado em seu {'\n'}livro{' '}
+        <Bold>{book}</Bold>
+      </Text>
     </SubContainer>
     <Button>
-      <ButtonText>CORRIGIR</ButtonText>
+      <ButtonText>VER</ButtonText>
     </Button>
   </Container>
 )
 
-export default Notification;
+export default Notification
