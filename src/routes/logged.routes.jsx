@@ -7,6 +7,7 @@ import Login from '../pages/unlogged/Login'
 import SignUp from '../pages/unlogged/SignUp'
 import Feed from './tab.routes'
 import CreateBook from '../pages/logged/CreateBook'
+import BookInfo from '../pages/logged/BookInfo'
 
 const logged = createStackNavigator()
 
@@ -27,6 +28,7 @@ const Logged = () => (
       }}
     />
     <logged.Screen name="Cadastro de Livro" component={CreateBook} />
+    <logged.Screen name="Informações do Livro" component={BookInfo} />
   </logged.Navigator>
 )
 

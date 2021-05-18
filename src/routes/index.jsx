@@ -1,9 +1,6 @@
-import React from 'react';
-import Unlogged from './unlogged.routes';
-import Logged from './logged.routes';
+import React from 'react'
+import Logged from './logged.routes'
 
-const Routes = () => (
-  <Logged />
-);
+const Routes = () => <Logged />
 
-export default Routes;
+export default Routes
