@@ -8,6 +8,13 @@ export const Container = styled.View`
   flex: 1;
   background: white;
 `
+export const BooksContainer = styled.View`
+  padding-top: 24px;
+  flex: 1;
+  background: white;
+  justify-content: center;
+  align-items: center;
+`
 
 export const NameContainer = styled.View`
   justify-content: center;
@@ -21,7 +28,7 @@ export const ProfileContainer = styled.View`
   align-self: center;
   align-items: center;
   width: 80%;
-  margin: 55px 0;
+  margin: 40px 0;
 `
 
 export const CenterContainer = styled.View`

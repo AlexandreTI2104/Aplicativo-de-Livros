@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TabView, SceneMap } from 'react-native-tab-view'
 import {
   Container,
+  BooksContainer,
   List,
   MenuProfile,
   MenuProfilerButton,
@@ -37,29 +38,71 @@ import {
   AmountView,
 } from './styles'
 
-const FirstRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
-)
-
-const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-)
-
-const ThirdRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-)
-
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  third: ThirdRoute,
-})
-
-const Profile = () => {
-  const { data: user, error } = useSWR('/user', fetcher)
+const FirstRoute = () => {
   const { data: myBooks, error: myBooksError } = useSWR('/mybooks', fetcher)
 
+  return (
+    <BooksContainer>
+      <FlatList
+        data={myBooks}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Books
+            genres={item.genres}
+            title={item.title}
+            cover={item.cover}
+            rewardable={item.rewardable}
+          />
+        )}
+        numColumns={3}
+        showsVerticalScrollIndicator={false}
+      />
+    </BooksContainer>
+  )
+}
+
+const SecondRoute = () => {
+  const { data: wanted_books, error: myBooksError } = useSWR(
+    '/wanted_books',
+    fetcher
+  )
+
+  return (
+    <BooksContainer>
+      <FlatList
+        data={wanted_books}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Books
+            genres={item.genres}
+            title={item.title}
+            cover={item.cover}
+            rewardable={item.rewardable}
+          />
+        )}
+        numColumns={3}
+        showsVerticalScrollIndicator={false}
+      />
+    </BooksContainer>
+  )
+}
+
+const Profile = () => {
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  })
+  const { data: user, error } = useSWR('/user', fetcher)
+
   const navigation = useNavigation()
+
+  const layout = useWindowDimensions()
+
+  const [index, setIndex] = React.useState(0)
+  const [routes] = React.useState([
+    { key: 'first', title: 'CADASTRADOS' },
+    { key: 'second', title: 'SOLICITADOS' },
+  ])
 
   return user ? (
     <Container>
@@ -81,8 +124,13 @@ const Profile = () => {
           </AmountView>
         </CenterContainer>
       </ProfileContainer>
-      <Name style={{ marginLeft: 10 }}>Meus livros cadastrados</Name>
-
+      <TabView
+        style={{ backgroundColor: 'red' }}
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
       {/* <FlatList
             data={dataBooks}
             keyExtractor={(item) => item.id}
