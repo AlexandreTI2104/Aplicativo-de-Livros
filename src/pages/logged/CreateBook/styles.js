@@ -1,15 +1,10 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: 20px 20px;
-  justify-content: center;
-  background: white;
 `
-export const SubContainer = styled.View`
-  justify-content: space-between;
-  height: 100%;
-`
+export const SubContainer = styled.View``
 
 export const SwitchInputWrapper = styled.View`
   flex-direction: row;
