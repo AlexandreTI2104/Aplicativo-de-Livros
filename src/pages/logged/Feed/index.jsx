@@ -20,7 +20,6 @@ const Feed = () => {
   return books ? (
     <Container>
       <FlatList
-        initialScrollIndex={1}
         keyExtractor={(item) => item.id}
         data={books}
         renderItem={({ item }) => (
