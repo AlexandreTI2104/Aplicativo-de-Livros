@@ -8,6 +8,13 @@ export const Container = styled.View`
   flex: 1;
   background: white;
 `
+export const LoadingContainer = styled.View`
+  flex: 1;
+  background: white;
+  justify-content: center;
+  align-items: center;
+`
+
 export const BooksContainer = styled.View`
   padding-top: 24px;
   flex: 1;
