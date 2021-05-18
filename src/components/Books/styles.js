@@ -8,10 +8,16 @@ export const Container = styled.TouchableOpacity`
   margin-bottom: 40px;
 `
 
-export const BookImage = styled.Image`
+export const BookImageContainer = styled.View`
   height: 150px;
-  border-radius: 5px;
+  width: 100%;
+  border-radius: 4px;
   margin-bottom: 10px;
+  overflow: hidden;
+`
+
+export const BookImage = styled.Image`
+  flex: 1;
 `
 
 export const Title = styled.Text`
