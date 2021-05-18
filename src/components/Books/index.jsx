@@ -1,14 +1,14 @@
 import React from 'react'
 import { BookImage, Container, Genre, Title, IconContainer } from './styles'
 import Icon2 from 'react-native-vector-icons/Foundation'
+import defaultImage from '../../assets/default-thumb.png'
 
 export const Books = ({ title, genres, cover, rewardable }) => {
   return (
     <Container>
       <BookImage
-        source={{
-          uri: cover ? cover : 'https://reactnative.dev/img/tiny_logo.png',
-        }}
+        resizeMode="cover"
+        source={cover ? { uri: cover } : defaultImage}
       />
       <Title numberOfLines={1}>{title}</Title>
       {genres.map((genre) => (
