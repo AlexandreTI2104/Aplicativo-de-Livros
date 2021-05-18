@@ -24,6 +24,7 @@ const Feed = () => {
         data={books}
         renderItem={({ item }) => (
           <Books
+            id={item.id}
             title={item.title}
             genres={item.genres}
             cover={item.cover}

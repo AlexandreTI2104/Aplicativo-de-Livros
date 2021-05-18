@@ -36,6 +36,7 @@ import {
   ViewButton,
   CenterContainer,
   AmountView,
+  LoadingContainer,
 } from './styles'
 
 const FirstRoute = () => {
@@ -48,6 +49,7 @@ const FirstRoute = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Books
+            id={item.id}
             genres={item.genres}
             title={item.title}
             cover={item.cover}
@@ -74,6 +76,7 @@ const SecondRoute = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Books
+            id={item.id}
             genres={item.genres}
             title={item.title}
             cover={item.cover}
@@ -131,29 +134,15 @@ const Profile = () => {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
       />
-      {/* <FlatList
-            data={dataBooks}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <ViewList>
-                <Books genre={item.genre} title={item.title} />
-                <ViewDone>
-                  <Icon name="done" color="white" />
-                </ViewDone>
-              </ViewList>
-            )}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-          /> */}
     </Container>
   ) : (
-    <Container>
+    <LoadingContainer>
       <ActivityIndicator
         size={'large'}
         animating={true}
         color={Colors.blue500}
       />
-    </Container>
+    </LoadingContainer>
   )
 }
 
