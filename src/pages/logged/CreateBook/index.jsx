@@ -6,25 +6,41 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
+  LogBox,
 } from 'react-native'
 
 import { TextInput, Switch } from 'react-native-paper'
 import { Formik, useField } from 'formik'
 import * as yup from 'yup'
 import Button from '../../../components/Button'
-import { Container, SubContainer } from './styles'
+import {
+  Container,
+  SubContainer,
+  MultiSelectWrapper,
+  ButtonContainer,
+} from './styles'
 import { TextInputWrapper, ErrorText } from '../../unlogged/Login/styles'
 import * as Styled from './styles'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import SectionedMultiSelect from 'react-native-sectioned-multi-select'
+import MultiSelect from 'react-native-multiple-select'
 import api, { fetcher } from '../../../services/api'
+import { Colors } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/core'
 import useSWR, { mutate } from 'swr'
+
+LogBox.ignoreLogs([
+  'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.',
+])
 
 export default function CreateBook() {
   const navigation = useNavigation()
 
   const { data: genres, error } = useSWR('/genres', fetcher)
+  const [genreIds, setGenreIds] = useState([])
+
+  const onSelectedItemsChange = (selectedItems) => {
+    setGenreIds(selectedItems)
+  }
 
   const handleSubmit = (values) => {
     api
@@ -60,6 +76,7 @@ export default function CreateBook() {
           errors,
           touched,
           setFieldValue,
+          setValues,
         }) => (
           <>
             <TextInputWrapper>
@@ -77,15 +94,23 @@ export default function CreateBook() {
                 <ErrorText>{errors.title}</ErrorText>
               )}
             </TextInputWrapper>
-            <TextInputWrapper>
+            <MultiSelectWrapper>
               {genres && (
-                <SectionedMultiSelect
+                <MultiSelect
+                  hideSubmitButton
+                  hideDropdown
+                  itemTextColor={Colors.grey700}
+                  selectedItemTextColor={Colors.blue500}
+                  tagBorderColor={Colors.blue500}
+                  tagTextColor={Colors.grey700}
+                  tagRemoveIconColor={Colors.red500}
                   name="genre_ids"
+                  searchInputPlaceholderText="Procurar gêneros..."
                   items={genres}
                   uniqueKey="id"
+                  fontSize={16}
                   displayKey="name"
-                  IconRenderer={Icon}
-                  selectText="Gêneros do livro"
+                  selectText="Gêneros"
                   hideSearch={true}
                   showDropDowns={true}
                   readOnlyHeadings={true}
@@ -98,7 +123,7 @@ export default function CreateBook() {
               {errors.genres && touched.genres && (
                 <ErrorText>{errors.genres}</ErrorText>
               )}
-            </TextInputWrapper>
+            </MultiSelectWrapper>
             <TextInputWrapper>
               <TextInput
                 name="author"
@@ -164,7 +189,9 @@ export default function CreateBook() {
                 </TextInputWrapper>
               </>
             ) : null}
-            <Button onPress={handleSubmit}>Cadastrar</Button>
+            <ButtonContainer>
+              <Button onPress={handleSubmit}>Cadastrar</Button>
+            </ButtonContainer>
           </>
         )}
       </Formik>
