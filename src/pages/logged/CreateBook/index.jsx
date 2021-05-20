@@ -60,7 +60,7 @@ export default function CreateBook() {
         initialValues={{
           title: '',
           author: '',
-          genre_ids: [1, 2, 3],
+          genre_ids: [],
           rewardable: false,
           first_question: null,
           second_question: null,
