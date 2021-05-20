@@ -5,13 +5,30 @@ export const Container = styled.SafeAreaView`
   background: white;
   justify-content: space-around;
   align-items: center;
-  padding: 16px 70px;
+  padding: 16px 50px;
+`
+
+export const BookImageContainer = styled.View`
+  height: 285px;
+  width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  elevation: 16;
+`
+
+export const Bold1 = styled.Text`
+  font-weight: bold;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.8);
+`
+export const Bold2 = styled.Text`
+  font-weight: bold;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
 `
 
 export const BookImage = styled.Image`
-  height: 285px;
-  width: 200px;
-  border-radius: 5px;
+  flex: 1;
 `
 
 export const InfoContainer = styled.View`
@@ -27,7 +44,7 @@ export const Text = styled.Text`
 `
 
 export const ButtonContainer = styled.View`
-  width: 280px;
+  width: 100%;
 `
 export const GenresContainer = styled.View`
   margin: 8px 0;
@@ -36,9 +53,11 @@ export const GenresContainer = styled.View`
 `
 
 export const ChipsListContainer = styled.View`
-  width: 200px;
+  width: 240px;
+  max-height: 80px;
   flex-direction: row;
   flex-wrap: wrap;
+  overflow: hidden;
 `
 
 export const ChipContainer = styled.View`

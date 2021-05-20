@@ -1,7 +1,7 @@
 import { setStatusBarStyle } from 'expo-status-bar'
 import styled from 'styled-components/native'
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.Pressable`
   width: 105px;
   height: 210px;
   margin: 10px;
@@ -14,6 +14,7 @@ export const BookImageContainer = styled.View`
   border-radius: 4px;
   margin-bottom: 10px;
   overflow: hidden;
+  elevation: 8;
 `
 
 export const BookImage = styled.Image`
@@ -42,4 +43,5 @@ export const IconContainer = styled.View`
   border-radius: 20px;
   background-color: #ffa000;
   border: 2px solid white;
+  elevation: 16;
 `

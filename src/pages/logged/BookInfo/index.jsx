@@ -32,13 +32,21 @@ export default function BookInfo() {
 
   return book ? (
     <Styled.Container>
-      <Styled.BookImage
-        resizeMode="stretch"
-        source={book.cover ? { uri: book.cover } : defaultImage}
-      />
+      <Styled.BookImageContainer>
+        <Styled.BookImage
+          resizeMode="stretch"
+          source={book.cover ? { uri: book.cover } : defaultImage}
+        />
+      </Styled.BookImageContainer>
       <Styled.InfoContainer>
-        <Styled.Text>Título: {book.title}</Styled.Text>
-        <Styled.Text>Autor: {book.author}</Styled.Text>
+        <Styled.Text>
+          Título:{'    '}
+          <Styled.Bold1>{book.title}</Styled.Bold1>
+        </Styled.Text>
+        <Styled.Text>
+          Autor:{'     '}
+          <Styled.Bold2>{book.author}</Styled.Bold2>
+        </Styled.Text>
         <Styled.GenresContainer>
           <Styled.Text>Gêneros: </Styled.Text>
           <Styled.ChipsListContainer>
